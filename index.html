@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stock Monitoring &amp; Data Storytelling</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+      color: #172033;
+    }
+    h1 { margin-bottom: 4px; }
+    .lede { color: #526070; margin-top: 0; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .card {
+      border: 1px solid #dfe4ea;
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+    .card h2 { font-size: 18px; margin: 0 0 6px; }
+    .card p { margin: 0 0 10px; }
+    .tag { font-size: 13px; color: #526070; }
+    a { color: #0F766E; }
+    code {
+      background: #f1f5f9;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    ol li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Stock Monitoring &amp; Data Storytelling</h1>
+  <p class="lede">
+    A volatility-alert pipeline and D3 data story for NVDA, TSLA and SPY.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h2><a href="story.html">Alert data story →</a></h2>
+      <p>
+        Which stock should a risk manager review each day? An interactive
+        grid compares 3% and 5% daily-swing alert thresholds over 30
+        trading days.
+      </p>
+      <span class="tag">D3 v7 · static, runs anywhere</span>
+    </div>
+
+    <div class="card">
+      <h2><a href="tracker.html">Live price tracker →</a></h2>
+      <p>
+        Polls a local Python server for the latest daily closes and
+        appends each refresh to a history table.
+      </p>
+      <span class="tag">Needs <code>python stock_server.py</code> and a Massive API key</span>
+    </div>
+  </div>
+
+  <h2>How the pieces fit</h2>
+  <ol>
+    <li>
+      <strong>Airflow pipeline</strong> fetches 30 trading days of prices
+      from Yahoo Finance, computes returns, daily swings and alerts, and
+      writes the CSVs the story page reads.
+    </li>
+    <li>
+      <strong>Spark streaming ingest</strong> replays 1-minute bars in
+      5-minute pulls, removes overlapping rows with an anti-join, and keeps
+      30-minute moving averages.
+    </li>
+    <li>
+      <strong>D3 story and live tracker</strong> present the results.
+    </li>
+  </ol>
+
+  <p class="tag">
+    Source code and setup:
+    <a href="https://github.com/sanikag20/stock-monitoring-data-story">GitHub repository</a>.
+  </p>
+</body>
+</html>

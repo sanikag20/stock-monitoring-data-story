@@ -1,0 +1,12 @@
+# Data story, metrics and tracker server
+pandas>=2.0
+numpy>=1.24
+requests>=2.31
+tzdata; platform_system == "Windows"
+
+# Fetching data
+yfinance>=0.2.66
+
+# Optional: orchestration and streaming
+# apache-airflow>=2.9
+# pyspark>=3.5
